@@ -4,17 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SolvedSuite - Your Business. Solved.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              navy: '#1a2332',
+              teal: '#14b8a6',
+              grey: '#6b7280',
+              yellow: '#fbbf24',
+            }
+          }
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
-```
-
-### 7. .gitignore
-```
-node_modules
-dist
-.env
-.env.local
