@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { getUserBusinesses } from '../services/supabase';
 import BusinessForm from '../components/dashboard/BusinessForm';
 import BusinessSwitcher from '../components/dashboard/BusinessSwitcher';
-import Results from '../components/results/Results';
+import ResultsDisplay from '../components/results/ResultsDisplay';
 import LoadingState from '../components/dashboard/LoadingState';
 
 export default function Dashboard({ user }) {
@@ -99,10 +99,8 @@ export default function Dashboard({ user }) {
             onGenerationStart={handleGenerationStart}
           />
         ) : currentBusiness?.results ? (
-          <Results 
-            business={currentBusiness}
-            user={user}
-            onUpdate={handleGenerationComplete}
+          <ResultsDisplay 
+            results={currentBusiness.results}
           />
         ) : (
           <div className="bg-white rounded-lg shadow-md p-8 text-center">
