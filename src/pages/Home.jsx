@@ -1,5 +1,13 @@
 import { Link } from 'react-router-dom';
 
+const STRIPE_WEEKLY_PRICE = import.meta.env.VITE_STRIPE_WEEKLY_PRICE_ID;
+const STRIPE_MONTHLY_PRICE = import.meta.env.VITE_STRIPE_MONTHLY_PRICE_ID;
+const STRIPE_ANNUAL_PRICE = import.meta.env.VITE_STRIPE_ANNUAL_PRICE_ID;
+
+function redirectToCheckout(priceId) {
+  window.location.href = `/api/create-checkout-session?priceId=${priceId}`;
+}
+
 export default function Home() {
   return (
     <div className="bg-white">
@@ -36,8 +44,8 @@ export default function Home() {
               Learn More
             </a>
 
-            <Link 
-              to="/auth" 
+            <Link
+              to="/auth"
               className="inline-block border-2 border-teal text-white text-xl font-bold py-4 px-12 rounded-lg hover:bg-teal/10 transition"
             >
               Get Started
@@ -49,27 +57,39 @@ export default function Home() {
       {/* Pricing Section */}
       <section id="pricing" className="py-20 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-navy text-center mb-12">
-            Simple Pricing
+          <h2 className="text-4xl font-bold text-navy text-center mb-4">
+            Simple, Transparent Pricing
           </h2>
+
+          <p className="text-center text-grey mb-10 max-w-2xl mx-auto">
+            🎄 <strong>Holiday Sale</strong> — lock in this pricing for life.
+            Sale ends <strong>January 04, 2026</strong>.
+          </p>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {/* Weekly */}
             <div className="bg-white p-8 rounded-lg border-2 border-gray-200">
               <h3 className="text-2xl font-bold text-navy mb-2">Weekly</h3>
-              <div className="mb-6">
+
+              <div className="mb-2">
+                <span className="line-through text-grey mr-2">$30</span>
                 <span className="text-4xl font-bold text-navy">$20</span>
-                <span className="text-grey"> per week</span>
               </div>
-              <ul className="space-y-3 mb-8">
+              <span className="text-grey">per week • price locked in for life</span>
+
+              <ul className="space-y-3 my-8">
                 <li className="text-grey">✓ Complete business strategy</li>
                 <li className="text-grey">✓ Up to 5 businesses</li>
                 <li className="text-grey">✓ Unlimited adjustments</li>
                 <li className="text-grey">✓ Download as PDF</li>
               </ul>
-              <Link to="/auth" className="block w-full text-center py-3 bg-navy text-white rounded-lg font-bold hover:bg-navy/90">
+
+              <button
+                onClick={() => redirectToCheckout(STRIPE_WEEKLY_PRICE)}
+                className="w-full py-3 bg-navy text-white rounded-lg font-bold hover:bg-navy/90"
+              >
                 Choose Weekly
-              </Link>
+              </button>
             </div>
 
             {/* Monthly */}
@@ -77,44 +97,43 @@ export default function Home() {
               <div className="bg-teal text-white text-center py-2 -mt-8 -mx-8 mb-6 rounded-t-lg font-bold">
                 MOST POPULAR
               </div>
+
               <h3 className="text-2xl font-bold text-navy mb-2">Monthly</h3>
-              <div className="mb-6">
+
+              <div className="mb-2">
+                <span className="line-through text-grey mr-2">$79</span>
                 <span className="text-4xl font-bold text-navy">$39</span>
-                <span className="text-grey"> per month</span>
               </div>
-              <ul className="space-y-3 mb-8">
+              <span className="text-grey">per month • price locked in for life</span>
+
+              <ul className="space-y-3 my-8">
                 <li className="text-grey">✓ Complete business strategy</li>
                 <li className="text-grey">✓ Up to 5 businesses</li>
                 <li className="text-grey">✓ Unlimited adjustments</li>
                 <li className="text-grey">✓ Download as PDF</li>
                 <li className="text-grey">✓ Best value</li>
               </ul>
-              <Link to="/auth" className="block w-full text-center py-3 bg-teal text-white rounded-lg font-bold hover:bg-teal/90">
+
+              <button
+                onClick={() => redirectToCheckout(STRIPE_MONTHLY_PRICE)}
+                className="w-full py-3 bg-teal text-white rounded-lg font-bold hover:bg-teal/90"
+              >
                 Choose Monthly
-              </Link>
+              </button>
             </div>
 
             {/* Annual */}
             <div className="bg-white p-8 rounded-lg border-2 border-gray-200">
               <h3 className="text-2xl font-bold text-navy mb-2">Annual</h3>
-              <div className="mb-6">
+
+              <div className="mb-2">
+                <span className="line-through text-grey mr-2">$790</span>
                 <span className="text-4xl font-bold text-navy">$390</span>
-                <span className="text-grey"> per year</span>
               </div>
-              <ul className="space-y-3 mb-8">
+              <span className="text-grey">per year • price locked in for life</span>
+
+              <ul className="space-y-3 my-8">
                 <li className="text-grey">✓ Complete business strategy</li>
                 <li className="text-grey">✓ Up to 5 businesses</li>
                 <li className="text-grey">✓ Unlimited adjustments</li>
-                <li className="text-grey">✓ Download as PDF</li>
-                <li className="text-grey">✓ Save $78/year</li>
-              </ul>
-              <Link to="/auth" className="block w-full text-center py-3 bg-navy text-white rounded-lg font-bold hover:bg-navy/90">
-                Choose Annual
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-}
+                <li className="text-grey">✓ Download as PDF
