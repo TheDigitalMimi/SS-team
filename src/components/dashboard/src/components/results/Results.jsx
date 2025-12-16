@@ -1,40 +1,77 @@
-import { useState } from 'react';
-import ResultsDisplay from './ResultsDisplay';
+import BusinessSwitcher from "./BusinessSwitcher";
+import CoreSection from "../results/CoreSection";
+import GrowthSection from "../results/GrowthSection";
+import RequestChangeBox from "../results/RequestChangeBox";
 
-export default function Results({ business, user }) {
-  const [downloading, setDownloading] = useState(false);
+export default function CreateResults({
+  businesses,
+  activeBusinessId,
+  setActiveBusinessId
+}) {
+  const business = businesses.find(b => b.id === activeBusinessId);
 
-  const handleDownloadPDF = () => {
-    setDownloading(true);
-    
-    // Create a simple text file download
-    const blob = new Blob([business.results], { type: 'text/plain' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${business.name}_strategy.txt`;
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(url);
-    document.body.removeChild(a);
-    
-    setDownloading(false);
+  if (!business) {
+    return (
+      <div className="p-8 text-gray-600">
+        No business selected.
+      </div>
+    );
+  }
+
+  const handlePrint = () => {
+    window.print();
   };
 
   return (
-    <div className="space-y-6">
-      <div className="bg-white rounded-lg shadow-md p-4 flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-navy">{business.name} Strategy</h2>
+    <div className="p-8 space-y-10">
+      {/* Header */}
+      <div className="bg-white rounded-lg shadow p-6 flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold text-navy">
+            {business.name}
+          </h1>
+          <p className="text-gray-600">
+            Your private SolvedSuite dashboard
+          </p>
+        </div>
+
         <button
-          onClick={handleDownloadPDF}
-          disabled={downloading}
-          className="bg-teal hover:bg-teal/90 text-white font-bold py-2 px-6 rounded-lg transition disabled:opacity-50"
+          onClick={handlePrint}
+          className="bg-teal text-white px-5 py-2 rounded-lg font-semibold hover:bg-teal/90"
         >
-          {downloading ? 'Downloading...' : 'Download'}
+          Print
         </button>
       </div>
 
-      <ResultsDisplay results={business.results} />
+      {/* Business Switcher */}
+      <BusinessSwitcher
+        businesses={businesses}
+        activeBusinessId={activeBusinessId}
+        setActiveBusinessId={setActiveBusinessId}
+      />
+
+      {/* CORE RESULTS */}
+      <section>
+        <h2 className="text-2xl font-bold text-navy mb-4">
+          Core Business Foundation
+        </h2>
+
+        <CoreSection core={business.core} />
+      </section>
+
+      {/* GROWTH RESULTS */}
+      <section>
+        <h2 className="text-2xl font-bold text-navy mb-4">
+          Growth & Marketing
+        </h2>
+
+        <GrowthSection growth={business.growth} />
+      </section>
+
+      {/* REQUEST CHANGE */}
+      <section>
+        <RequestChangeBox businessId={business.id} />
+      </section>
     </div>
   );
 }
