@@ -1,78 +1,107 @@
-import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { supabase, getCurrentUser } from './services/supabase';
+import { useState } from "react";
+import ResultsPage from "./components/results/ResultsPage";
 
-import Home from './pages/Home';
-import About from './pages/About';
-import BusinessHub from './pages/BusinessHub';
-import Dashboard from './pages/Dashboard';
-import Auth from './components/auth/Auth';
+export default function App() {
+  const [businesses] = useState([
+    {
+      id: "biz-1",
+      name: "SolvedSuite Demo Business",
 
-import Header from './components/layout/Header';
-import Footer from './components/layout/Footer';
+      core: {
+        businessPlan: `This is a full business plan created by SolvedSuite.
+It outlines the model, revenue streams, startup steps, and long-term growth strategy.`,
 
-function App() {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+        swotAnalysis: `Strengths: Clear value proposition
+Weaknesses: New market entry
+Opportunities: Growing demand for AI-driven planning
+Threats: Traditional consultants and generic tools`,
 
-  useEffect(() => {
-    getCurrentUser().then(user => {
-      setUser(user);
-      setLoading(false);
-    });
+        keywordResearch: {
+          primary: ["business planning software", "AI business tools"],
+          secondary: ["startup automation", "online business help"],
+          longTail: [
+            "how to start a business with no money",
+            "AI tools for small business owners",
+            "business planning software for beginners"
+          ],
+          local: ["South Carolina small business services"]
+        },
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setUser(session?.user ?? null);
+        targetCustomers: `Entrepreneurs, solopreneurs, and small business owners
+who want guidance without agency-level costs.`,
+
+        branding: `Tone: Professional, supportive, confident
+Colors: Teal, navy, white
+Fonts: Clean sans-serif
+Tagline: Your business, solved.`,
+
+        competitorAnalysis: `Competitors include consultants and one-off AI tools.
+SolvedSuite delivers a full, structured business package instead.`,
+
+        financialProjections: `Estimated monthly revenue: $5,000–$15,000
+Low overhead, scalable model, strong margins.`
+      },
+
+      growth: {
+        adSets: [
+          {
+            id: "adset-1",
+            images: [
+              {
+                imageUrl: "https://via.placeholder.com/400x300",
+                headline: "Build Smarter",
+                copy: "Let SolvedSuite handle the planning.",
+                cta: "Get Started",
+                platform: "Facebook"
+              },
+              {
+                imageUrl: "https://via.placeholder.com/400x300",
+                headline: "Your Business, Solved",
+                copy: "Everything you need in one place.",
+                cta: "Learn More",
+                platform: "Instagram"
+              },
+              {
+                imageUrl: "https://via.placeholder.com/400x300",
+                headline: "Skip the Guesswork",
+                copy: "A full business plan, done for you.",
+                cta: "Try It Now",
+                platform: "Google Ads"
+              }
+            ]
+          }
+        ],
+
+        contentCalendar: `Week 1:
+• Introduction post
+• Problem awareness
+• Value teaser
+
+Week 2:
+• Educational post
+• Tip-based content
+• Soft CTA
+
+Week 3:
+• Social proof
+• FAQ
+• Reminder
+
+Week 4:
+• Offer highlight
+• Recap
+• Next steps`
       }
-    );
+    }
+  ]);
 
-    return () => subscription.unsubscribe();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-navy text-xl">Loading...</div>
-      </div>
-    );
-  }
+  const [activeBusinessId, setActiveBusinessId] = useState(businesses[0].id);
 
   return (
-    <Router>
-      <div className="min-h-screen bg-white flex flex-col">
-        <Header user={user} />
-
-        <main className="flex-grow">
-          <Routes>
-            {/* Home */}
-            <Route path="/" element={<Home />} />
-
-            {/* About */}
-            <Route path="/about" element={<About />} />
-
-            {/* Business Hub (public overview / cards page) */}
-            <Route path="/business-hub" element={<BusinessHub />} />
-
-            {/* Auth */}
-            <Route
-              path="/auth"
-              element={user ? <Navigate to="/dashboard" /> : <Auth />}
-            />
-
-            {/* Dashboard = SolvedSuite Business Hub (logged in) */}
-            <Route
-              path="/dashboard"
-              element={user ? <Dashboard user={user} /> : <Navigate to="/auth" />}
-            />
-          </Routes>
-        </main>
-
-        <Footer />
-      </div>
-    </Router>
+    <ResultsPage
+      businesses={businesses}
+      activeBusinessId={activeBusinessId}
+      setActiveBusinessId={setActiveBusinessId}
+    />
   );
 }
-
-export default App;
-
