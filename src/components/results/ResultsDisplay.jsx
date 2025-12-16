@@ -2,7 +2,7 @@ export default function ResultsDisplay({ results }) {
   return (
     <div className="bg-white rounded-lg shadow-md p-8">
       <div className="prose max-w-none">
-        <div className="whitespace-pre-wrap text-grey leading-relaxed">
+        <div className="whitespace-pre-wrap text-gray-700 leading-relaxed">
           {results}
         </div>
       </div>
