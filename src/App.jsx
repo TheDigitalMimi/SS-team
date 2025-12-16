@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { supabase, getCurrentUser } from './services/supabase';
 
 import Home from './pages/Home';
+import About from './pages/About';
 import BusinessHub from './pages/BusinessHub';
 import Dashboard from './pages/Dashboard';
 import Auth from './components/auth/Auth';
@@ -47,7 +48,10 @@ function App() {
             {/* Home */}
             <Route path="/" element={<Home />} />
 
-            {/* Business Hub (cards / overview page) */}
+            {/* About */}
+            <Route path="/about" element={<About />} />
+
+            {/* Business Hub (public overview / cards page) */}
             <Route path="/business-hub" element={<BusinessHub />} />
 
             {/* Auth */}
@@ -71,3 +75,4 @@ function App() {
 }
 
 export default App;
+
