@@ -56,7 +56,7 @@ export default function Dashboard({ user }) {
   const handleGenerationComplete = (updatedBusiness) => {
     setGenerating(false);
     setCurrentBusiness(updatedBusiness);
-    const updatedBusinesses = businesses.map(b => 
+    const updatedBusinesses = businesses.map(b =>
       b.id === updatedBusiness.id ? updatedBusiness : b
     );
     setBusinesses(updatedBusinesses);
@@ -65,7 +65,9 @@ export default function Dashboard({ user }) {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-navy text-xl">Loading your workspace...</div>
+        <div className="text-navy text-xl">
+          Loading your Business Hub...
+        </div>
       </div>
     );
   }
@@ -73,15 +75,19 @@ export default function Dashboard({ user }) {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4">
+
+        {/* HEADER — RENAMED */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-navy mb-2">
-            Welcome back, {user.user_metadata.first_name || 'there'}!
+            SolvedSuite Business Hub
           </h1>
-          <p className="text-grey text-lg">Your business team is ready to help you succeed</p>
+          <p className="text-grey text-lg">
+            Your centralized workspace for building, managing, and growing your business.
+          </p>
         </div>
 
         {businesses.length > 0 && (
-          <BusinessSwitcher 
+          <BusinessSwitcher
             businesses={businesses}
             currentBusiness={currentBusiness}
             onSelect={handleBusinessSelect}
@@ -93,15 +99,13 @@ export default function Dashboard({ user }) {
         {generating ? (
           <LoadingState firstName={user.user_metadata.first_name || 'there'} />
         ) : showForm || !currentBusiness ? (
-          <BusinessForm 
+          <BusinessForm
             user={user}
             onBusinessCreated={handleBusinessCreated}
             onGenerationStart={handleGenerationStart}
           />
         ) : currentBusiness?.results ? (
-          <ResultsDisplay 
-            results={currentBusiness.results}
-          />
+          <ResultsDisplay results={currentBusiness.results} />
         ) : (
           <div className="bg-white rounded-lg shadow-md p-8 text-center">
             <p className="text-grey text-lg mb-4">
@@ -119,3 +123,4 @@ export default function Dashboard({ user }) {
     </div>
   );
 }
+
