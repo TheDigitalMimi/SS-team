@@ -41,14 +41,14 @@ export default function Home() {
               href="#pricing"
               className="inline-block bg-teal hover:bg-teal/90 text-white text-xl font-bold py-4 px-12 rounded-lg transition"
             >
-              Learn More
+              View Holiday Pricing
             </a>
 
             <Link
               to="/auth"
               className="inline-block border-2 border-teal text-white text-xl font-bold py-4 px-12 rounded-lg hover:bg-teal/10 transition"
             >
-              Get Started
+              Get Started Free
             </Link>
           </div>
         </div>
@@ -57,13 +57,18 @@ export default function Home() {
       {/* Pricing Section */}
       <section id="pricing" className="py-20 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-navy text-center mb-4">
-            Simple, Transparent Pricing
+          <h2 className="text-4xl font-bold text-navy text-center mb-3">
+            Holiday Sale Pricing
           </h2>
 
+          <p className="text-center text-grey mb-2 max-w-2xl mx-auto text-lg">
+            🎄 <strong>Limited-time Holiday Sale</strong>
+          </p>
+
           <p className="text-center text-grey mb-10 max-w-2xl mx-auto">
-            🎄 <strong>Holiday Sale</strong> — lock in this pricing for life.
-            Sale ends <strong>January 04, 2026</strong>.
+            Lock in this discounted pricing for life.
+            <br />
+            <strong>Sale ends January 04, 2026.</strong>
           </p>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -75,9 +80,12 @@ export default function Home() {
                 <span className="line-through text-grey mr-2">$30</span>
                 <span className="text-4xl font-bold text-navy">$20</span>
               </div>
-              <span className="text-grey">per week • price locked in for life</span>
 
-              <ul className="space-y-3 my-8">
+              <p className="text-grey mb-6">
+                per week • holiday price locked in for life
+              </p>
+
+              <ul className="space-y-3 mb-8">
                 <li className="text-grey">✓ Complete business strategy</li>
                 <li className="text-grey">✓ Up to 5 businesses</li>
                 <li className="text-grey">✓ Unlimited adjustments</li>
@@ -88,7 +96,7 @@ export default function Home() {
                 onClick={() => redirectToCheckout(STRIPE_WEEKLY_PRICE)}
                 className="w-full py-3 bg-navy text-white rounded-lg font-bold hover:bg-navy/90"
               >
-                Choose Weekly
+                Lock in Weekly
               </button>
             </div>
 
@@ -104,9 +112,12 @@ export default function Home() {
                 <span className="line-through text-grey mr-2">$79</span>
                 <span className="text-4xl font-bold text-navy">$39</span>
               </div>
-              <span className="text-grey">per month • price locked in for life</span>
 
-              <ul className="space-y-3 my-8">
+              <p className="text-grey mb-6">
+                per month • holiday price locked in for life
+              </p>
+
+              <ul className="space-y-3 mb-8">
                 <li className="text-grey">✓ Complete business strategy</li>
                 <li className="text-grey">✓ Up to 5 businesses</li>
                 <li className="text-grey">✓ Unlimited adjustments</li>
@@ -118,7 +129,7 @@ export default function Home() {
                 onClick={() => redirectToCheckout(STRIPE_MONTHLY_PRICE)}
                 className="w-full py-3 bg-teal text-white rounded-lg font-bold hover:bg-teal/90"
               >
-                Choose Monthly
+                Lock in Monthly
               </button>
             </div>
 
@@ -130,10 +141,29 @@ export default function Home() {
                 <span className="line-through text-grey mr-2">$790</span>
                 <span className="text-4xl font-bold text-navy">$390</span>
               </div>
-              <span className="text-grey">per year • price locked in for life</span>
 
-              <ul className="space-y-3 my-8">
+              <p className="text-grey mb-6">
+                per year • holiday price locked in for life
+              </p>
+
+              <ul className="space-y-3 mb-8">
                 <li className="text-grey">✓ Complete business strategy</li>
                 <li className="text-grey">✓ Up to 5 businesses</li>
                 <li className="text-grey">✓ Unlimited adjustments</li>
-                <li className="text-grey">✓ Download as PDF
+                <li className="text-grey">✓ Download as PDF</li>
+                <li className="text-grey">✓ Save $400 annually</li>
+              </ul>
+
+              <button
+                onClick={() => redirectToCheckout(STRIPE_ANNUAL_PRICE)}
+                className="w-full py-3 bg-navy text-white rounded-lg font-bold hover:bg-navy/90"
+              >
+                Lock in Annual
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
