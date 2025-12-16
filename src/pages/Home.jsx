@@ -36,7 +36,9 @@ export default function Home() {
             without agency-level costs.
           </p>
 
+          {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            {/* Go to pricing section */}
             <a
               href="#pricing"
               className="inline-block bg-teal hover:bg-teal/90 text-white text-xl font-bold py-4 px-12 rounded-lg transition"
@@ -44,11 +46,12 @@ export default function Home() {
               View Holiday Pricing
             </a>
 
+            {/* Go to About page */}
             <Link
-              to="/auth"
+              to="/about"
               className="inline-block border-2 border-teal text-white text-xl font-bold py-4 px-12 rounded-lg hover:bg-teal/10 transition"
             >
-              Get Started Free
+              Learn More
             </Link>
           </div>
         </div>
@@ -167,3 +170,4 @@ export default function Home() {
     </div>
   );
 }
+
