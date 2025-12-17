@@ -4,33 +4,6 @@ import ResultsPage from "./components/results/ResultsPage";
 import Pricing from "./pages/Pricing";
 
 /* ===============================
-   STARTER / PREVIEW BUSINESS DATA
-   =============================== */
-
-const starterBusiness = {
-  id: "starter",
-  name: "Your First Business (Preview)",
-  isStarter: true,
-  locked: true,
-  core: {
-    businessPlan:
-      "This is a preview of your personalized business plan. Subscribe to unlock the full version.",
-    swotAnalysis:
-      "Preview SWOT analysis. Full strengths, weaknesses, opportunities, and threats unlock with full access.",
-    branding:
-      "Preview branding direction. Full brand voice, colors, and naming unlock after subscribing.",
-    marketingStrategy:
-      "Preview marketing outline. Full platform-by-platform strategy is locked.",
-    financialProjections:
-      "Preview only. Unlock full financial projections with paid access.",
-  },
-  growth: {
-    contentCalendar:
-      "Preview 7-day content calendar. Full 30-day calendar unlocks after subscribing.",
-  },
-};
-
-/* ===============================
    NAVIGATION
    =============================== */
 
@@ -60,7 +33,7 @@ function Navbar() {
         to="/start"
         className="bg-teal-600 text-white px-5 py-2 rounded-full hover:bg-teal-700 font-semibold transition shadow-md"
       >
-        Try Free
+        Start Free
       </Link>
     </nav>
   );
@@ -108,11 +81,11 @@ function Home() {
             to="/start"
             className="inline-block bg-teal-500 hover:bg-teal-400 text-slate-900 px-8 py-4 rounded-lg text-xl font-bold transition transform hover:scale-105 shadow-[0_0_20px_rgba(20,184,166,0.5)]"
           >
-            Start Building Now
+            Start Free
           </Link>
 
           <p className="mt-4 text-sm text-gray-500">
-            No credit card required to start.
+            No credit card required to begin.
           </p>
         </div>
       </section>
@@ -133,7 +106,7 @@ function About() {
 }
 
 /* ===============================
-   START FREE
+   START FREE (NO "GENERATE")
    =============================== */
 
 function GeneratorStart() {
@@ -142,10 +115,10 @@ function GeneratorStart() {
       <div className="max-w-2xl w-full bg-white border border-gray-200 rounded-2xl shadow-2xl p-8 md:p-12">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-extrabold text-gray-900 mb-2">
-            Let's Build Your Business
+            Start with a Free Preview
           </h2>
           <p className="text-gray-500">
-            Tell us a little about your vision to get started.
+            See how SolvedSuite works before unlocking the full system.
           </p>
         </div>
 
@@ -153,19 +126,26 @@ function GeneratorStart() {
           to="/dashboard"
           className="block text-center w-full bg-teal-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-teal-700 transition"
         >
-          Generate My Plan
+          Enter SolvedSuite
         </Link>
+
+        <p className="text-center text-sm text-gray-400 mt-4">
+          You’re viewing about 10% of what SolvedSuite delivers.
+        </p>
       </div>
     </div>
   );
 }
 
 /* ===============================
-   APP (THIS IS THE KEY PART)
+   APP
    =============================== */
 
 export default function App() {
-  const [businesses, setBusinesses] = useState([starterBusiness]);
+  const [businesses] = useState([
+    { id: "starter", name: "Preview Business", core: {}, growth: {} }
+  ]);
+
   const [activeBusinessId, setActiveBusinessId] = useState("starter");
 
   return (
@@ -192,3 +172,4 @@ export default function App() {
     </BrowserRouter>
   );
 }
+
