@@ -3,7 +3,37 @@ import { BrowserRouter, Routes, Route, Link, Outlet } from "react-router-dom";
 import ResultsPage from "./components/results/ResultsPage";
 import Pricing from "./pages/Pricing";
 
-// --- Navigation ---
+/* ===============================
+   STARTER / PREVIEW BUSINESS DATA
+   =============================== */
+
+const starterBusiness = {
+  id: "starter",
+  name: "Your First Business (Preview)",
+  isStarter: true,
+  locked: true,
+  core: {
+    businessPlan:
+      "This is a preview of your personalized business plan. Subscribe to unlock the full version.",
+    swotAnalysis:
+      "Preview SWOT analysis. Full strengths, weaknesses, opportunities, and threats unlock with full access.",
+    branding:
+      "Preview branding direction. Full brand voice, colors, and naming unlock after subscribing.",
+    marketingStrategy:
+      "Preview marketing outline. Full platform-by-platform strategy is locked.",
+    financialProjections:
+      "Preview only. Unlock full financial projections with paid access.",
+  },
+  growth: {
+    contentCalendar:
+      "Preview 7-day content calendar. Full 30-day calendar unlocks after subscribing.",
+  },
+};
+
+/* ===============================
+   NAVIGATION
+   =============================== */
+
 function Navbar() {
   return (
     <nav className="p-4 border-b flex justify-between items-center bg-white shadow-sm sticky top-0 z-50">
@@ -15,9 +45,15 @@ function Navbar() {
       </div>
 
       <div className="hidden md:flex space-x-8">
-        <Link to="/" className="hover:text-teal-600 font-medium text-gray-700">Home</Link>
-        <Link to="/about" className="hover:text-teal-600 font-medium text-gray-700">About</Link>
-        <Link to="/pricing" className="hover:text-teal-600 font-medium text-gray-700">Pricing</Link>
+        <Link to="/" className="hover:text-teal-600 font-medium text-gray-700">
+          Home
+        </Link>
+        <Link to="/about" className="hover:text-teal-600 font-medium text-gray-700">
+          About
+        </Link>
+        <Link to="/pricing" className="hover:text-teal-600 font-medium text-gray-700">
+          Pricing
+        </Link>
       </div>
 
       <Link
@@ -30,7 +66,10 @@ function Navbar() {
   );
 }
 
-// --- Layout ---
+/* ===============================
+   LAYOUT
+   =============================== */
+
 function Layout() {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans">
@@ -40,7 +79,10 @@ function Layout() {
   );
 }
 
-// --- Home ---
+/* ===============================
+   HOME
+   =============================== */
+
 function Home() {
   return (
     <div className="flex flex-col font-sans">
@@ -78,7 +120,10 @@ function Home() {
   );
 }
 
-// --- About ---
+/* ===============================
+   ABOUT
+   =============================== */
+
 function About() {
   return (
     <div className="p-20 text-center text-2xl font-bold">
@@ -87,10 +132,11 @@ function About() {
   );
 }
 
-// --- Try Free ---
-function GeneratorStart() {
-  const [idea, setIdea] = useState("");
+/* ===============================
+   START FREE
+   =============================== */
 
+function GeneratorStart() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
       <div className="max-w-2xl w-full bg-white border border-gray-200 rounded-2xl shadow-2xl p-8 md:p-12">
@@ -103,45 +149,24 @@ function GeneratorStart() {
           </p>
         </div>
 
-        <div className="space-y-6">
-          <input
-            type="text"
-            placeholder="Your Name"
-            className="w-full p-4 border border-gray-300 rounded-lg"
-          />
-
-          <input
-            type="text"
-            placeholder="Location"
-            className="w-full p-4 border border-gray-300 rounded-lg"
-          />
-
-          <textarea
-            value={idea}
-            onChange={(e) => setIdea(e.target.value)}
-            placeholder="I want to start a mobile coffee cart..."
-            className="w-full p-4 border border-gray-300 rounded-lg h-32 resize-none"
-          />
-
-          <Link
-            to="/dashboard"
-            className="block text-center w-full bg-teal-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-teal-700 transition"
-          >
-            Generate My Plan
-          </Link>
-        </div>
+        <Link
+          to="/dashboard"
+          className="block text-center w-full bg-teal-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-teal-700 transition"
+        >
+          Generate My Plan
+        </Link>
       </div>
     </div>
   );
 }
 
-// --- App ---
-export default function App() {
-  const [businesses] = useState([
-    { id: "biz-1", name: "SolvedSuite Demo Business", core: {}, growth: {} }
-  ]);
+/* ===============================
+   APP (THIS IS THE KEY PART)
+   =============================== */
 
-  const [activeBusinessId, setActiveBusinessId] = useState(businesses[0].id);
+export default function App() {
+  const [businesses, setBusinesses] = useState([starterBusiness]);
+  const [activeBusinessId, setActiveBusinessId] = useState("starter");
 
   return (
     <BrowserRouter>
