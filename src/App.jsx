@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route, Link, Outlet } from "react-router-dom";
 import ResultsPage from "./components/results/ResultsPage";
-import Pricing from "./pages/Pricing"; // ✅ REAL pricing page
+import Pricing from "./pages/Pricing";
 
-// --- 1. Navigation Menu Component ---
+// --- Navigation ---
 function Navbar() {
   return (
     <nav className="p-4 border-b flex justify-between items-center bg-white shadow-sm sticky top-0 z-50">
@@ -30,7 +30,7 @@ function Navbar() {
   );
 }
 
-// --- 2. Page Layout ---
+// --- Layout ---
 function Layout() {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans">
@@ -40,7 +40,7 @@ function Layout() {
   );
 }
 
-// --- 3. Home Page ---
+// --- Home ---
 function Home() {
   return (
     <div className="flex flex-col font-sans">
@@ -66,3 +66,104 @@ function Home() {
             to="/start"
             className="inline-block bg-teal-500 hover:bg-teal-400 text-slate-900 px-8 py-4 rounded-lg text-xl font-bold transition transform hover:scale-105 shadow-[0_0_20px_rgba(20,184,166,0.5)]"
           >
+            Start Building Now
+          </Link>
+
+          <p className="mt-4 text-sm text-gray-500">
+            No credit card required to start.
+          </p>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// --- About ---
+function About() {
+  return (
+    <div className="p-20 text-center text-2xl font-bold">
+      About SolvedSuite Page
+    </div>
+  );
+}
+
+// --- Try Free ---
+function GeneratorStart() {
+  const [idea, setIdea] = useState("");
+
+  return (
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
+      <div className="max-w-2xl w-full bg-white border border-gray-200 rounded-2xl shadow-2xl p-8 md:p-12">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-extrabold text-gray-900 mb-2">
+            Let's Build Your Business
+          </h2>
+          <p className="text-gray-500">
+            Tell us a little about your vision to get started.
+          </p>
+        </div>
+
+        <div className="space-y-6">
+          <input
+            type="text"
+            placeholder="Your Name"
+            className="w-full p-4 border border-gray-300 rounded-lg"
+          />
+
+          <input
+            type="text"
+            placeholder="Location"
+            className="w-full p-4 border border-gray-300 rounded-lg"
+          />
+
+          <textarea
+            value={idea}
+            onChange={(e) => setIdea(e.target.value)}
+            placeholder="I want to start a mobile coffee cart..."
+            className="w-full p-4 border border-gray-300 rounded-lg h-32 resize-none"
+          />
+
+          <Link
+            to="/dashboard"
+            className="block text-center w-full bg-teal-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-teal-700 transition"
+          >
+            Generate My Plan
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// --- App ---
+export default function App() {
+  const [businesses] = useState([
+    { id: "biz-1", name: "SolvedSuite Demo Business", core: {}, growth: {} }
+  ]);
+
+  const [activeBusinessId, setActiveBusinessId] = useState(businesses[0].id);
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/start" element={<GeneratorStart />} />
+        </Route>
+
+        <Route
+          path="/dashboard"
+          element={
+            <ResultsPage
+              businesses={businesses}
+              activeBusinessId={activeBusinessId}
+              setActiveBusinessId={setActiveBusinessId}
+            />
+          }
+        />
+      </Routes>
+    </BrowserRouter>
+  );
+}
