@@ -8,26 +8,24 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { priceId, email, firstName } = req.body;
+    const { priceId } = req.body;
 
-    if (!priceId || !email || !firstName) {
-      return res.status(400).json({ error: 'Missing required fields' });
+    if (!priceId) {
+      return res.status(400).json({ error: 'Missing priceId' });
     }
 
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
       payment_method_types: ['card'],
-      customer_email: email,
       line_items: [{ price: priceId, quantity: 1 }],
-      success_url: `${process.env.VITE_APP_URL}/auth?success=true`,
-      cancel_url: `${process.env.VITE_APP_URL}/auth?canceled=true`,
-      metadata: { email, firstName },
-      subscription_data: { metadata: { email, firstName } },
+      // Stripe can collect email during checkout automatically
+      success_url: `${process.env.APP_URL}/dashboard?paid=true`,
+      cancel_url: `${process.env.APP_URL}/pricing`,
     });
 
     return res.status(200).json({ url: session.url });
   } catch (error) {
     console.error('Stripe error:', error);
-    return res.status(500).json({ error: 'Failed to create checkout' });
+    return res.status(500).json({ error: error?.message || 'Failed to create checkout' });
   }
 }
