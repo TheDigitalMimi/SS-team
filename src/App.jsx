@@ -28,7 +28,9 @@ function Navbar() {
       <div className="hidden md:flex space-x-8">
         <Link to="/" className="hover:text-teal-600 font-medium">Home</Link>
         <Link to="/pricing" className="hover:text-teal-600 font-medium">Pricing</Link>
-        <Link to="/hub" className="hover:text-teal-600 font-medium">My Business</Link>
+        <Link to="/dashboard" className="hover:text-teal-600 font-medium">
+          Dashboard
+        </Link>
       </div>
 
       <Link
@@ -55,7 +57,7 @@ function Layout() {
 }
 
 /* ===============================
-   LANDING PAGE (PUBLIC)
+   LANDING PAGE
 ================================ */
 
 function Landing() {
@@ -101,14 +103,14 @@ function StartFree() {
       <div className="bg-white p-10 rounded-xl shadow-xl text-center">
         <h2 className="text-3xl font-bold mb-4">Free Preview</h2>
         <p className="text-gray-500 mb-6">
-          You’ll see a limited version before unlocking everything.
+          You’ll enter the dashboard to start building.
         </p>
 
         <Link
           to="/dashboard"
           className="bg-teal-600 text-white px-6 py-4 rounded-lg font-bold"
         >
-          Enter Preview
+          Go to Dashboard
         </Link>
       </div>
     </div>
@@ -133,11 +135,14 @@ export default function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/start" element={<StartFree />} />
-          <Route path="/hub" element={<BusinessHub />} />
+
+          {/* DASHBOARD = INPUT / WORK AREA */}
+          <Route path="/dashboard" element={<BusinessHub />} />
         </Route>
 
+        {/* RESULTS = OUTPUT ONLY */}
         <Route
-          path="/dashboard"
+          path="/results"
           element={
             <ResultsPage
               businesses={businesses}
